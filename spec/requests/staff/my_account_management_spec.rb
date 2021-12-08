@@ -33,7 +33,7 @@ describe "職員による自分のアカウントの管理" do
       travel_to Staff::Base::TIMEOUT.from_now.advance(seconds: 1)
       get staff_account_url
       expect(response).to redirect_to(staff_login_url)
-    end  
+    end
   end
 
   describe "更新" do
