@@ -8,7 +8,7 @@ class Staff::CustomersController < Staff::Base
     @customer = Customer.find(params[:id])
   end
 
-  def new_password
+  def new
     @customer_form = Staff::CustomerForm.new
   end
 
