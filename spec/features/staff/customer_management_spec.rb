@@ -81,6 +81,6 @@ feature "職員による顧客管理" do
     expect(page).to have_css(
       "div.field_with_errors input#form_customer_birthday")
     expect(page).to have_css(
-      "div.field_with_errors input#form_home_adress_postal_code")
+      "div.field_with_errors input#form_home_address_postal_code")
   end
 end
