@@ -22,6 +22,16 @@ class Staff::CustomerForm
     self.inputs_work_address = params[:inputs_work_address] == "1"
 
     customer.assign_attributes(customer_params)
+    phones = phone_params(:customer).fetch(:phones)
+
+    customer.personal_phones.size.times do |index|
+      attributes = phones[index.to_s]
+      if attributes && attributes[:number].present?
+        customer.personal_phones[index].assign_attributes(attributes)
+      else
+        customer.personal_phones[index].mark_for_destruction
+      end
+    end
 
     if inputs_home_address
       customer.home_address.assign_attributes(home_address_params)
@@ -37,7 +47,7 @@ class Staff::CustomerForm
   end
 
   private def customer_params
-    @params.require(:customer).permit(
+    @params.require(:customer).except(:phones).permit(
       :email, :password,
       :family_name, :given_name, :family_name_kana, :given_name_kana,
       :birthday, :gender
@@ -55,5 +65,10 @@ class Staff::CustomerForm
       :postal_code, :prefecture, :city, :address1, :address2,
       :company_name, :division_name
     )
+  end
+
+  private def phone_params(record_name)
+    @params.require(record_name)
+      .slice(:phones).permit(phones: [ :number, :primary ])
   end
 end
