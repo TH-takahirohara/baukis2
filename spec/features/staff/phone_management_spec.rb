@@ -34,6 +34,7 @@ feature "職員による顧客電話番号管理" do
     customer.reload
     expect(customer.home_address.phones.size).to eq(1)
     expect(customer.home_address.phones[0].number).to eq("03-9999-9999")
+    expect(customer.home_address.phones[0].primary).to be_truthy
   end
 
   scenario "職員が顧客の勤務先電話番号を追加する" do
