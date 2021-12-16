@@ -21,6 +21,7 @@ feature "職員による顧客電話番号管理" do
     customer.reload
     expect(customer.personal_phones.size).to eq(1)
     expect(customer.personal_phones[0].number).to eq("090-9999-9999")
+    expect(customer.personal_phones[0].primary).to be_truthy
   end
 
   scenario "職員が顧客の自宅電話番号を追加する" do
